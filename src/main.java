@@ -151,7 +151,7 @@ static void consulta(Twitter twitter)
 		} */
 		
 		
-		/*
+		
 		
 		InformacionTweet info = new InformacionTweet(twitter, "sebastianpinera", "937862056648298496");//"925367463709159424");
 		try {
@@ -169,9 +169,9 @@ static void consulta(Twitter twitter)
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		*/
-		MonitorTwitter monitor = new MonitorTwitter();
-		monitor.tweetsUsuario(twitter, "sebastianpinera");
+		
+		//MonitorTwitter monitor = new MonitorTwitter();
+		//monitor.tweetsUsuario(twitter, "sebastianpinera");
 		
 		System.out.println("Termino del programa");
 	 

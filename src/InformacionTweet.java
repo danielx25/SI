@@ -149,8 +149,8 @@ public class InformacionTweet {
 
 	            for (Status tweet : tweets) 
 	            {
-	            	if (tweet.getInReplyToStatusId() == Long.parseLong(id))
-	            	{
+	            	//if (tweet.getInReplyToStatusId() == Long.parseLong(id))
+	            	//{
 	            		usuario = new ReplicaTweet(twitter, tweet.getUser().getScreenName());
 	            		usuario.infoUser();
 	            		usuarios_comentaron.add(usuario);
@@ -158,12 +158,12 @@ public class InformacionTweet {
 	            		//System.out.println("de: "+tweet.getUser().getName());
 	            		//System.out.println("res: "+tweet.getText());
 	            		usuario.setTextoTweet(tweet.getText());
-	            		usuario.setIdtweetReplica(id);
+	            		usuario.setIdtweetReplica(String.valueOf(tweet.getInReplyToStatusId()));
 	            		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
 	            		//ResponseList<Status> lista =  tweet.getF;
 	            		//System.out.println("----------------");
 	            		
-	            	}
+	            	//}
 	            		
 	            }
 	            //    if (tweet.getInReplyToStatusId() == idUltimoTweet)
