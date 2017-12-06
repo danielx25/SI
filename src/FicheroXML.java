@@ -24,6 +24,12 @@ import org.w3c.dom.NodeList;
 import org.w3c.dom.Text;
 import org.w3c.dom.UserDataHandler;
 
+
+import java.io.FileWriter;
+import java.io.IOException;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+
 public class FicheroXML {
 	
 	private String ruta;
@@ -105,7 +111,7 @@ public class FicheroXML {
         //Generate XML
         Source source = new DOMSource(document);
         //Indicamos donde lo queremos almacenar
-        Result result = new StreamResult(new java.io.File(this.ruta+".xml")); //nombre del archivo
+        Result result = new StreamResult(new java.io.File(tweet.getScreenName()+tweet.getID()+".xml")); //nombre del archivo
         Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.transform(source, result);
 	}
@@ -129,6 +135,7 @@ public class FicheroXML {
 		Element screenName = documento.createElement("screenName");
 		screenName.appendChild(documento.createTextNode(tweet.getScreenName()));
 		
+		System.out.println("******>"+tweet.getNumeroComentarios());
 		Element numeroComentarios = documento.createElement("NumeroComentarios");
 		numeroComentarios.appendChild(documento.createTextNode(String.valueOf(tweet.getNumeroComentarios())));
 
@@ -163,5 +170,55 @@ public class FicheroXML {
 		
 		
 		return tweetRaiz;
+	}
+	
+	public void archivoJson(InformacionTweet tweet)
+	{
+		JSONObject obj = new JSONObject();
+		obj.put("Id", tweet.getID());
+		obj.put("IdReplica", tweet.getIdReplica());
+		obj.put("Texto", tweet.getDescripcion());
+		obj.put("Fecha", tweet.getFecha());
+		obj.put("ScreenName", tweet.getScreenName());
+		obj.put("Numero Comentarios", tweet.getNumeroComentarios());
+		obj.put("Numero Replicas", tweet.getNumeroReplicas());
+		obj.put("Numero MeGustas", tweet.getNumeroMeGustas());
+		
+		
+		JSONArray list = new JSONArray();
+
+		//obj.put("Tags", list);
+		JSONObject usuarioObj;// = new JSONObject();
+		for (ReplicaTweet usuario : tweet.getListaUsuarios()) {
+			usuarioObj = new JSONObject();
+			usuarioObj.put("IdReplica", usuario.getIdtweetReplica());
+			usuarioObj.put("ScreenName",usuario.getScreenName());
+			usuarioObj.put("Nombre", usuario.getName());
+			usuarioObj.put("textoTweet", usuario.getTextoTweet());
+			usuarioObj.put("fecha", usuario.getFechaPublicacion());
+			usuarioObj.put("Descricion", usuario.getDescription());
+			usuarioObj.put("Seguidores", usuario.getCountFollowers());
+			usuarioObj.put("Seguidos", usuario.getCountFollowed());
+			usuarioObj.put("Numeros Seguidores", usuario.getCountTweets());
+			
+			
+			//obj.put("usuario", usuarioObj);
+			list.add(usuarioObj);
+			
+		}
+		obj.put("Usuarios", list);
+
+		try {
+
+			FileWriter file = new FileWriter(tweet.getScreenName()+tweet.getID()+".json");
+			file.write(obj.toJSONString());
+			file.flush();
+			file.close();
+
+		} catch (IOException e) {
+			//manejar error
+		}
+
+		System.out.print(obj);
 	}
 }

@@ -92,36 +92,14 @@ static void consulta(Twitter twitter)
             te.printStackTrace();
             System.out.println("Failed to get timeline: " + te.getMessage());
             System.exit(-1);
-}
+        }
 	}
 
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		
-		//https://apps.twitter.com/app/14199409/keys
-        //consulta(twitter);
-        //amigos_seguidores(twitter);
-        //tweetsUsuario(twitter, "sebastianpinera");
-        /*
-        try {
-			Status status = twitter.updateStatus("creating baeldung API2");
-			System.out.println("finalizado");
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}*/
 		
-		/*
-		FicheroXML archivo = new FicheroXML("ejemplo");
-		try {
-			archivo.crearXML();
-		} catch (ParserConfigurationException
-				| TransformerFactoryConfigurationError | TransformerException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		*/
 		Twitter twitter = Credenciales.obtenerCredencial();
 		/*
 		try {
@@ -152,7 +130,8 @@ static void consulta(Twitter twitter)
 		}
         */
 		//tweetsUsuario(twitter, "MovistarChile");
-        /*InformacionUsuario usuario1 = new InformacionUsuario(twitter, "sebastianpinera");
+        /*
+        InformacionUsuario usuario1 = new InformacionUsuario(twitter, "sebastianpinera");
         usuario1.infoUser();
         FicheroXML archivo = new FicheroXML("sebastianpinera");
         try {
@@ -171,13 +150,30 @@ static void consulta(Twitter twitter)
 			e.printStackTrace();
 		} */
 		
-		InformacionTweet info = new InformacionTweet(twitter, "MovistarChile", "923186947438399489");//"925367463709159424");
+		
+		/*
+		
+		InformacionTweet info = new InformacionTweet(twitter, "sebastianpinera", "937862056648298496");//"925367463709159424");
 		try {
 			info.analizandoTwitts();
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		FicheroXML fichero = new FicheroXML("tweetMovistar");
+		try {
+			fichero.archivoJson(info);
+			fichero.crearXML_t(info);
+		} catch (ParserConfigurationException
+				| TransformerFactoryConfigurationError | TransformerException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
+		MonitorTwitter monitor = new MonitorTwitter();
+		monitor.tweetsUsuario(twitter, "sebastianpinera");
+		
+		System.out.println("Termino del programa");
 	 
 	}
 }

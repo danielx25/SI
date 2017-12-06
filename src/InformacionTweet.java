@@ -25,8 +25,13 @@ public class InformacionTweet {
 	private String pais = "None";
 	private String ciudad = "None";
 	
-	ArrayList<InformacionUsuario> usuarios_comentaron;
+	ArrayList<ReplicaTweet> usuarios_comentaron;
 	//List<>
+	
+	public ArrayList<ReplicaTweet> getListaUsuarios()
+	{
+		return usuarios_comentaron;
+	}
 	
 	public String getID()
 	{
@@ -88,7 +93,7 @@ public class InformacionTweet {
 		this.twitter = twitter;
 		this.screeName = screenName;
 		this.id = id;
-		usuarios_comentaron = new ArrayList<InformacionUsuario>();
+		usuarios_comentaron = new ArrayList<ReplicaTweet>();
 		
 	}
 	
@@ -105,34 +110,36 @@ public class InformacionTweet {
 		if(status != null)
 		{
 			descripcion = status.getText();
-			numeroComentarios = status.getRetweetCount();
+			//numeroComentarios = status.getRetweetCount();
 			numeroMeGustas = status.getFavoriteCount();
+			numeroReplicas = status.getRetweetCount();
 			fecha = sdf.format(status.getCreatedAt());
 			idReplica = String.valueOf(status.getInReplyToStatusId());
+			/*
 			System.out.println("id                : "+ status.getId());
 			System.out.println("Descripcion       : " + status.getText());
 			System.out.println("numero favoritos  : "+status.getFavoriteCount());
 			System.out.println("numero de reTweets: "+status.getRetweetCount());
 			System.out.println("fecha             : "+fecha);
 			System.out.println("InReplyToStatusId : "+status.getInReplyToStatusId());
-			
+			*/
 			if(status.getPlace() != null)
 			{
 				ubicacion = true;
 				pais = status.getPlace().getCountry();
 				ciudad = status.getPlace().getName();
-				System.out.println("localizacion: ");
+				/*System.out.println("localizacion: ");
             	System.out.println("pais        : "+status.getPlace().getCountry());
             	System.out.println("fullName    : "+status.getPlace().getFullName());
             	System.out.println("name        : "+status.getPlace().getName());
             	System.out.println("addres      : "+status.getPlace().getStreetAddress());
-            	System.out.println("x: "+status.getPlace().getGeometryCoordinates());
+            	System.out.println("x: "+status.getPlace().getGeometryCoordinates());*/
 			}
 
 
 			Query query = new Query("to:" + screeName + " since_id:" + id);
 	        QueryResult results;
-	        
+	        ReplicaTweet usuario;
 
 	        do {
 	            results = twitter.search(query);
@@ -144,10 +151,18 @@ public class InformacionTweet {
 	            {
 	            	if (tweet.getInReplyToStatusId() == Long.parseLong(id))
 	            	{
-	            		System.out.println("de: "+tweet.getUser().getName());
-	            		System.out.println("res: "+tweet.getText());
+	            		usuario = new ReplicaTweet(twitter, tweet.getUser().getScreenName());
+	            		usuario.infoUser();
+	            		usuarios_comentaron.add(usuario);
+	            		numeroComentarios+=1;
+	            		//System.out.println("de: "+tweet.getUser().getName());
+	            		//System.out.println("res: "+tweet.getText());
+	            		usuario.setTextoTweet(tweet.getText());
+	            		usuario.setIdtweetReplica(id);
+	            		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
 	            		//ResponseList<Status> lista =  tweet.getF;
-	            		System.out.println("----------------");
+	            		//System.out.println("----------------");
+	            		
 	            	}
 	            		
 	            }

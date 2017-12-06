@@ -70,6 +70,7 @@ public class InformacionUsuario {
 			e.printStackTrace();
 		}
         if (user.getStatus() != null) {
+        	/*
             System.out.println("screen name : "+ user.getScreenName());
             System.out.println("name        : "+ user.getName());
             System.out.println("ultimo tweet: "+ user.getStatus().getText());
@@ -77,7 +78,7 @@ public class InformacionUsuario {
             System.out.println("seguidores  : "+ user.getFollowersCount());
             System.out.println("sigue       : "+ user.getFriendsCount());
             System.out.println("tweets      : "+ user.getStatusesCount());
-            
+            */
             name = user.getName();
             idUltimoTweet = String.valueOf(user.getStatus().getId());
             descripcion = user.getDescription();
@@ -125,7 +126,7 @@ public class InformacionUsuario {
 
 	        do {
 	            results = twitter.search(query);
-	            System.out.println("Results: " + results.getTweets().size());
+	            //System.out.println("Results: " + results.getTweets().size());
 	            List<Status> tweets = results.getTweets();
 	            //ResponseList<Status> lista = results.get
 
