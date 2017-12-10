@@ -6,6 +6,7 @@ public class ReplicaTweet extends InformacionUsuario{
 	private String idtweetReplica;
 	private String textoTweet;
 	private String fecha;
+	private String id;
 	 
 
 	public ReplicaTweet(Twitter twitter, String screenName) {
@@ -41,6 +42,16 @@ public class ReplicaTweet extends InformacionUsuario{
 	public String getFechaPublicacion()
 	{
 		return fecha;
+	}
+	
+	public String getID()
+	{
+		return id;
+	}
+	
+	public void setID(String id_)
+	{
+		id = id_;
 	}
 
 }

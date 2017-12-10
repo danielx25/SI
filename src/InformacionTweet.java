@@ -160,6 +160,7 @@ public class InformacionTweet {
 	            		usuario.setTextoTweet(tweet.getText());
 	            		usuario.setIdtweetReplica(String.valueOf(tweet.getInReplyToStatusId()));
 	            		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
+	            		usuario.setID(String.valueOf(tweet.getId()));
 	            		//ResponseList<Status> lista =  tweet.getF;
 	            		//System.out.println("----------------");
 	            		

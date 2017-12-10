@@ -1,9 +1,13 @@
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactoryConfigurationError;
 
+import twitter4j.Query;
+import twitter4j.QueryResult;
 import twitter4j.Status;
 import twitter4j.Twitter;
 import twitter4j.TwitterException;
@@ -11,12 +15,45 @@ import twitter4j.TwitterException;
 
 public class MonitorTwitter {
 	
+	Twitter twitter;
+	String nameUser;
+	ArrayList<ReplicaTweet> usuarios_comentaron;
+	private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	
-	
-	public MonitorTwitter() {
+	public MonitorTwitter(Twitter twitter, String nameUser) {
 		// TODO Auto-generated constructor stub
+		this.twitter = twitter;
+		this.nameUser = nameUser;
+		usuarios_comentaron = new ArrayList<ReplicaTweet>();
 	}
 	
+	public void minarTweets() throws TwitterException
+	{
+		
+		Query query = new Query(nameUser);//("to:" + nameUser + " since_id:" + id);
+        QueryResult results;
+        ReplicaTweet usuario;
+
+        do {
+            results = twitter.search(query);
+            System.out.println("Results: " + results.getTweets().size());
+            List<Status> tweets = results.getTweets();
+
+            for (Status tweet : tweets) 
+            {
+        		usuario = new ReplicaTweet(twitter, tweet.getUser().getScreenName());
+        		usuario.infoUser();
+        		usuarios_comentaron.add(usuario);
+        		usuario.setTextoTweet(tweet.getText());
+        		usuario.setIdtweetReplica(String.valueOf(tweet.getInReplyToStatusId()));
+        		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
+        		usuario.setID(String.valueOf(tweet.getId()));
+            }
+
+        } while ((query = results.nextQuery()) != null);
+		
+		
+	}
 	
 	public void tweetsUsuario(Twitter twitter, String nameUser)
 	{

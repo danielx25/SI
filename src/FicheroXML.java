@@ -191,6 +191,7 @@ public class FicheroXML {
 		JSONObject usuarioObj;// = new JSONObject();
 		for (ReplicaTweet usuario : tweet.getListaUsuarios()) {
 			usuarioObj = new JSONObject();
+			usuarioObj.put("Id", usuario.getID());
 			usuarioObj.put("IdReplica", usuario.getIdtweetReplica());
 			usuarioObj.put("ScreenName",usuario.getScreenName());
 			usuarioObj.put("Nombre", usuario.getName());
