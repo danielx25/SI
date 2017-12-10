@@ -29,7 +29,6 @@ public class MonitorTwitter {
 	
 	public void minarTweets() throws TwitterException
 	{
-		
 		Query query = new Query(nameUser);//("to:" + nameUser + " since_id:" + id);
         QueryResult results;
         ReplicaTweet usuario;
@@ -43,23 +42,19 @@ public class MonitorTwitter {
             {
         		usuario = new ReplicaTweet(twitter, tweet.getUser().getScreenName());
         		usuario.infoUser();
-        		usuarios_comentaron.add(usuario);
         		usuario.setTextoTweet(tweet.getText());
         		usuario.setIdtweetReplica(String.valueOf(tweet.getInReplyToStatusId()));
         		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
         		usuario.setID(String.valueOf(tweet.getId()));
+        		usuarios_comentaron.add(usuario);
             }
 
         } while ((query = results.nextQuery()) != null);
-		
-		
 	}
 	
 	public void tweetsUsuario(Twitter twitter, String nameUser)
 	{
-		
 		InformacionTweet info =null;//= new InformacionTweet(twitter, "sebastianpinera", "937862056648298496");
-		
 		// gets Twitter instance with default credentials
         try {
             List<Status> statuses;
@@ -94,9 +89,6 @@ public class MonitorTwitter {
 		} catch ( TransformerFactoryConfigurationError e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		
+		}	
 	}
-	
-
 }
