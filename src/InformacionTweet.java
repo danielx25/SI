@@ -98,7 +98,7 @@ public class InformacionTweet {
 	}
 	
 	
-	public void analizandoTwitts() throws TwitterException
+	public void analizandoTwitts(ArrayList<ReplicaTweet> usuarios_) throws TwitterException
 	{
 		Status status = null;
 		try {
@@ -136,7 +136,14 @@ public class InformacionTweet {
             	System.out.println("x: "+status.getPlace().getGeometryCoordinates());*/
 			}
 
-
+			
+			for (ReplicaTweet replicaTweet : usuarios_) {
+				if (Long.parseLong(replicaTweet.getIdtweetReplica()) == Long.parseLong(id))
+				{
+					usuarios_comentaron.add(replicaTweet);
+				}
+			}
+			/*
 			Query query = new Query("to:" + screeName + " since_id:" + id);
 	        QueryResult results;
 	        ReplicaTweet usuario;
@@ -169,7 +176,7 @@ public class InformacionTweet {
 	            }
 	            //    if (tweet.getInReplyToStatusId() == idUltimoTweet)
 	            //        replies.add(tweet);
-	        } while ((query = results.nextQuery()) != null);
+	        } while ((query = results.nextQuery()) != null);*/
 		}
         
 	}

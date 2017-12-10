@@ -52,7 +52,7 @@ public class MonitorTwitter {
         } while ((query = results.nextQuery()) != null);
 	}
 	
-	public void tweetsUsuario(Twitter twitter, String nameUser)
+	public void tweetsUsuario()//Twitter twitter, String nameUser)
 	{
 		InformacionTweet info =null;//= new InformacionTweet(twitter, "sebastianpinera", "937862056648298496");
 		// gets Twitter instance with default credentials
@@ -77,7 +77,7 @@ public class MonitorTwitter {
 	{
 		InformacionTweet info = new InformacionTweet(twitter, screenName, idTweet);
 		try {
-			info.analizandoTwitts();
+			info.analizandoTwitts(usuarios_comentaron);
 		} catch (TwitterException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

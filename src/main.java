@@ -152,7 +152,7 @@ static void consulta(Twitter twitter)
 		
 		
 		
-		
+		/*
 		InformacionTweet info = new InformacionTweet(twitter, "sebastianpinera", "937862056648298496");//"925367463709159424");
 		try {
 			info.analizandoTwitts();
@@ -168,10 +168,10 @@ static void consulta(Twitter twitter)
 				| TransformerFactoryConfigurationError | TransformerException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 		
-		//MonitorTwitter monitor = new MonitorTwitter();
-		//monitor.tweetsUsuario(twitter, "sebastianpinera");
+		MonitorTwitter monitor = new MonitorTwitter(twitter, "sebastianpinera");
+		monitor.tweetsUsuario();//twitter, "sebastianpinera");
 		
 		System.out.println("Termino del programa");
 	 
