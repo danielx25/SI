@@ -27,13 +27,15 @@ public class MonitorTwitter {
 		usuarios_comentaron = new ArrayList<ReplicaTweet>();
 	}
 	
-	public void minarTweets() throws TwitterException
+	public void minarTweets() throws TwitterException, InterruptedException
 	{
 		Query query = new Query(nameUser);//("to:" + nameUser + " since_id:" + id);
         QueryResult results;
         ReplicaTweet usuario;
 
         do {
+        	
+        	final long startTime = System.nanoTime();
             results = twitter.search(query);
             System.out.println("Results: " + results.getTweets().size());
             List<Status> tweets = results.getTweets();
@@ -47,6 +49,25 @@ public class MonitorTwitter {
         		usuario.setFechaPublicacion(sdf.format(tweet.getCreatedAt()));
         		usuario.setID(String.valueOf(tweet.getId()));
         		usuarios_comentaron.add(usuario);
+        		
+        		
+        		System.out.println();
+        		System.out.println("_________________________________________");
+    			System.out.println("id                : "+ usuario.getID());
+    			System.out.println("screenName        : "+ usuario.getScreenName());
+    			System.out.println("texto             : " + usuario.getTextoTweet());
+    			System.out.println("id replica        : "+usuario.getIdtweetReplica());
+    			//System.out.println("numero de reTweets: "+status.getRetweetCount());
+    			//System.out.println("fecha             : "+fecha);
+    			//System.out.println("InReplyToStatusId : "+status.getInReplyToStatusId());
+            }
+            
+            
+            
+            final long duration = System.nanoTime() - startTime;
+            if ((5500 - duration / 1000000) > 0) {
+                //logger.info("Sleep for " + (6000 - duration / 1000000) + " miliseconds");
+                Thread.sleep((5500 - duration / 1000000));
             }
 
         } while ((query = results.nextQuery()) != null);

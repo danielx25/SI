@@ -171,8 +171,13 @@ static void consulta(Twitter twitter)
 		}*/
 		
 		MonitorTwitter monitor = new MonitorTwitter(twitter, "sebastianpinera");
-		monitor.tweetsUsuario();//twitter, "sebastianpinera");
-		
+		//monitor.tweetsUsuario();//twitter, "sebastianpinera");
+		try {
+			monitor.minarTweets();
+		} catch (TwitterException | InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		System.out.println("Termino del programa");
 	 
 	}
